@@ -1,0 +1,4 @@
+resource "aws_key_pair" "localkey" {
+  key_name   = "localkey"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCvpvDxvxNRtfi6VTQQU5vR+At3RVVFntnAMvcuCnz/ZvuTSsR8hV88iDs0YRoCTIeb4Wyc1PWmkNKOzXMIiWKnVo6ksgHn2UDnpj8ZXkQnFO/dRJ9s1u/GrdTV7qVLd54gU2R46J2I56RlcIeKah4wKnwuxk6xzA01lXjOWE2RZ+Upyq0qLGfAziio7vF51wuRud6HJ1GHKmuUSBdQAX/XO4ZyOAvG+iML6R7H9xDH/UmL8/HXYwgTR7Dum2lVPnc6Tx6vgl3fvLpb4F8RLSAWhmsGzemOBi2HaUcCKvG2r/AS4eFLPKbCBDQWQkZgU7CCSA+XmTPhBL9t/cRa4vvTrsr+lYJDkcIn2G7kUOyvhUNfb7v//UhJySwCLzAJZCknuVxcXLjofdu2lKy09aA9NkCF/9eVbjLwELURU04Kj376bwjH8kcOsAEnAXMC4VtQ5Fba/j6GIQP6nwfAJscwi6FvkpCpq19fJzlQ9WV/fE2EDed15BNrMz8Oam0BfU8= HP@sujitha"
+}
