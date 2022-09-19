@@ -44,19 +44,19 @@ resource "aws_instance" "stage_tomcat" {
   subnet_id              = "subnet-037191be97e63fda9"
   vpc_security_group_ids = [aws_security_group.cicd-sg.id]
   key_name               = aws_key_pair.localkey.id
-  #iam_instance_profile = aws_iam_instance_profile.artifactory.name
-  # user_data              = <<-EOF
-  #        #!/bin/bash
-  #        wget -O /etc/yum.repos.d/jenkins.repo \
-  #           https://pkg.jenkins.io/redhat-stable/jenkins.repo
-  #        rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-  #        yum update -y
-  #        # Add required dependencies for the jenkins package
-  #        amazon-linux-extras install java-openjdk11
-  #        yum install jenkins -y
-  #        systemctl start jenkins
-  #        systemctl enable jenkins
-  #        EOF
+  iam_instance_profile = aws_iam_instance_profile.version.name
+  user_data              = <<-EOF
+         #!/bin/bash
+         wget -O /etc/yum.repos.d/jenkins.repo \
+            https://pkg.jenkins.io/redhat-stable/jenkins.repo
+         rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+         yum update -y
+         # Add required dependencies for the jenkins package
+         amazon-linux-extras install java-openjdk11
+         yum install jenkins -y
+         systemctl start jenkins
+         systemctl enable jenkins
+         EOF
   tags = {
     Name = "stage-tomcat"
   }
@@ -86,17 +86,7 @@ resource "aws_instance" "stage_tomcat" {
 # }
 
 
-# resource "aws_instance" "stage_Grafana" {
-#   ami           =  "ami-0b89f7b3f054b957e"
-#   instance_type = "t2.micro"
-# #   vpc_id = aws_vpc.stage-vpc.id
-#   subnet_id = aws_subnet.stage-public[0].id
-#   vpc_security_group_ids = [aws_security_group.stage-apache-sg.id]
-#   tags = {
-#     Name = "stage-Grafana"
-#   }
-#  }
-# }
+
 
 # lifecycle {
 #     create_before_destroy = true
