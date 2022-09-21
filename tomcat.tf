@@ -45,18 +45,17 @@ resource "aws_instance" "stage_tomcat" {
   vpc_security_group_ids = [aws_security_group.cicd-sg.id]
   key_name               = aws_key_pair.localkey.id
   iam_instance_profile = aws_iam_instance_profile.version.name
-  user_data              = <<-EOF
-         #!/bin/bash
-         wget -O /etc/yum.repos.d/jenkins.repo \
-            https://pkg.jenkins.io/redhat-stable/jenkins.repo
-         rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-         yum update -y
-         # Add required dependencies for the jenkins package
-         amazon-linux-extras install java-openjdk11
-         yum install jenkins -y
-         systemctl start jenkins
-         systemctl enable jenkins
-         EOF
+  # user_data              = <<-EOF
+  #        #!/bin/bash
+  #        sudo yum install update -y
+  #        sudo yum install java -y
+  #        amazon-linux-extras install java-openjdk11
+  #        wget -O /opt/apache-tomcat-9.0.65-windows-x64.zip https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65-windows-x64.zip
+  #        cd /opt
+  #        unzip apache-tomcat-9.0.65-windows-x64.zip
+  #        mv apache-tomcat-9.0.65 tomcat9
+  #        rm -f apache-tomcat-9.0.65-windows-x64.zip
+  #        EOF
   tags = {
     Name = "stage-tomcat"
   }

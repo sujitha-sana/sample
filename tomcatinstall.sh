@@ -1,7 +1,7 @@
 #!/bin/bash
-# sudo yum install update -y
+# sudo yum update -y
 # sudo yum install java -y
-# amazon-linux-extras install java-openjdk11
+# sudo amazon-linux-extras install java-openjdk11
 
 # wget -O /opt/apache-tomcat-9.0.65-windows-x64.zip https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65-windows-x64.zip
 

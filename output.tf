@@ -13,3 +13,7 @@ output "tomcatip"{
 # output "cicdip"{
 #     value = aws_instance.stage_cicd.public_ip
 # }
+
+output "dockerip"{
+    value = aws_instance.stage_docker.public_ip
+}

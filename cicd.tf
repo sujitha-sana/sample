@@ -50,11 +50,14 @@ resource "aws_instance" "stage_cicd" {
             https://pkg.jenkins.io/redhat-stable/jenkins.repo
          rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
          yum update -y
-         # Add required dependencies for the jenkins package
          amazon-linux-extras install java-openjdk11
          yum install jenkins -y
          systemctl start jenkins
          systemctl enable jenkins
+        #  cd /opt
+        #  wget EOFhttps://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+        #  tar -xzvf apache-maven-3.8.6-bin.tar.gz
+        #  mv apache-maven-3.8.6 maven38
          EOF
   tags = {
     Name = "stage-cicd"
