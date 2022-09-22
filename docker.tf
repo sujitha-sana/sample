@@ -1,7 +1,7 @@
-resource "aws_security_group" "stage-docker-sg" {
+resource "aws_security_group" "docker-sg" {
   name        = "allow docker"
   description = "Allow docker inbound traffic"
-  vpc_id      = "vpc-0859fa737a167cb13"
+  vpc_id      = "vpc-0f5e00829b52ddb19"
 
   ingress {
     description = "ssh from VPC"
@@ -10,7 +10,7 @@ resource "aws_security_group" "stage-docker-sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
 
-    # security_groups = [aws_security_group.stage-bastion-sg.id]
+    # security_groups = [aws_security_group.bastion-sg.id]
 
   }
 
@@ -32,31 +32,31 @@ resource "aws_security_group" "stage-docker-sg" {
 
   }
   tags = {
-    Name = "Stage-docker-sg"
+    Name = "docker-sg"
   }
 }
 
 
-resource "aws_instance" "stage_docker" {
+resource "aws_instance" "dev_docker" {
   ami           = "ami-0b89f7b3f054b957e"
   instance_type = "t2.micro"
-  #   vpc_id = aws_vpc.stage-vpc.id
-  subnet_id              = "subnet-037191be97e63fda9"
-  vpc_security_group_ids = [aws_security_group.cicd-sg.id]
-  key_name               = aws_key_pair.localkey.id
-  iam_instance_profile = aws_iam_instance_profile.version.name
-#   user_data              = <<-EOF
-#          #!/bin/bash
-#          sudo yum install update -y
-#          sudo yum install java -y
-#          amazon-linux-extras install java-openjdk11
-#          wget -O /opt/apache-docker-9.0.65-windows-x64.zip https://dlcdn.apache.org/docker/docker-9/v9.0.65/bin/apache-docker-9.0.65-windows-x64.zip
-#          cd /opt
-#          unzip apache-docker-9.0.65-windows-x64.zip
-#          mv apache-docker-9.0.65 docker9
-#          rm -f apache-docker-9.0.65-windows-x64.zip
-#          EOF
+  #   vpc_id = aws_vpc.vpc.id
+  subnet_id              = "subnet-0a1b70f3de7a10ea1"
+  vpc_security_group_ids = [aws_security_group.docker-sg.id]
+  key_name               = aws_key_pair.ownkey.id
+  # iam_instance_profile = aws_iam_instance_profile.ecr-role.name
+  user_data              = <<-EOF
+         #!/bin/bash
+         sudo yum install update -y
+         sudo yum install java -y
+         amazon-linux-extras install java-openjdk11
+         wget -O /opt/apache-docker-9.0.65-windows-x64.zip https://dlcdn.apache.org/docker/docker-9/v9.0.65/bin/apache-docker-9.0.65-windows-x64.zip
+         cd /opt
+         unzip apache-docker-9.0.65-windows-x64.zip
+         mv apache-docker-9.0.65 docker9
+         rm -f apache-docker-9.0.65-windows-x64.zip
+         EOF
   tags = {
-    Name = "stage-docker"
+    Name = "docker"
   }
 }

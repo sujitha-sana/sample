@@ -1,7 +1,7 @@
 resource "aws_security_group" "cicd-sg" {
-  name        = "allow cicd-sg"
+  name        = "allow cicd"
   description = "Allow cicd inbound traffic"
-  vpc_id      = "vpc-0859fa737a167cb13"
+  vpc_id      = "vpc-0f5e00829b52ddb19"
 
   ingress {
     description = "ssh from VPC"
@@ -10,7 +10,7 @@ resource "aws_security_group" "cicd-sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
 
-    # security_groups = [aws_security_group.stage-bastion-sg.id]
+    # security_groups = [aws_security_group.dev-bastion-sg.id]
 
   }
 
@@ -32,17 +32,17 @@ resource "aws_security_group" "cicd-sg" {
 
   }
   tags = {
-    Name = "Stage-cicd-sg"
+    Name = "dev-cicd-sg"
   }
 }
 
-resource "aws_instance" "stage_cicd" {
+resource "aws_instance" "dev_cicd" {
   ami           = "ami-0b89f7b3f054b957e"
   instance_type = "c5a.2xlarge"
-  #   vpc_id = aws_vpc.stage-vpc.id
-  subnet_id              = "subnet-037191be97e63fda9"
+  #   vpc_id = aws_vpc.dev-vpc.id
+  subnet_id              = "subnet-0a1b70f3de7a10ea1"
   vpc_security_group_ids = [aws_security_group.cicd-sg.id]
-  key_name               = aws_key_pair.localkey.id
+  key_name               = aws_key_pair.ownkey.id
   #iam_instance_profile = aws_iam_instance_profile.artifactory.name
   user_data              = <<-EOF
          #!/bin/bash
@@ -60,22 +60,11 @@ resource "aws_instance" "stage_cicd" {
         #  mv apache-maven-3.8.6 maven38
          EOF
   tags = {
-    Name = "stage-cicd"
+    Name = "dev-cicd"
   }
 }
 
 
-# resource "aws_instance" "stage_cicd" {
-#   ami           =  "ami-0b89f7b3f054b957e"
-#   instance_type = "t2.micro"
-# #   vpc_id = aws_vpc.stage-vpc.id
-#   subnet_id = "subnet-037191be97e63fda9"
-#   vpc_security_group_ids = [aws_security_group.cicd-sg.id]
-#   key_name               = aws_key_pair.localkey.id
-#   tags = {
-#     Name = "stage-cicd"
-#   }
-# }
 
 # lifecycle {
 #     create_before_destroy = true
