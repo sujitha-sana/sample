@@ -1,7 +1,7 @@
 resource "aws_security_group" "docker-sg" {
   name        = "allow docker"
   description = "Allow docker inbound traffic"
-  vpc_id      = "vpc-0f5e00829b52ddb19"
+  vpc_id      = "vpc-0222cd10ddab1c8a7"
 
   ingress {
     description = "ssh from VPC"
@@ -41,7 +41,7 @@ resource "aws_instance" "dev_docker" {
   ami           = "ami-0b89f7b3f054b957e"
   instance_type = "t2.micro"
   #   vpc_id = aws_vpc.vpc.id
-  subnet_id              = "subnet-0a1b70f3de7a10ea1"
+  subnet_id              = "subnet-00490b67305622c42"
   vpc_security_group_ids = [aws_security_group.docker-sg.id]
   key_name               = aws_key_pair.ownkey.id
   # iam_instance_profile = aws_iam_instance_profile.ecr-role.name

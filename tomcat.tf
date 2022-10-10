@@ -1,7 +1,7 @@
 resource "aws_security_group" "tomcat-sg" {
   name        = "allow tomcat"
   description = "Allow tomcat inbound traffic"
-  vpc_id      = "vpc-0f5e00829b52ddb19"
+  vpc_id      = "vpc-0222cd10ddab1c8a7"
 
   ingress {
     description = "ssh from VPC"
@@ -40,9 +40,9 @@ resource "aws_security_group" "tomcat-sg" {
 resource "aws_instance" "dev_tomcat" {
   ami           = "ami-0b89f7b3f054b957e"
   instance_type = "t2.micro"
-  #   vpc_id = aws_vpc.dev-vpc.id
-  subnet_id              = "subnet-0a1b70f3de7a10ea1"
-  vpc_security_group_ids = [aws_security_group.tomcat-sg.id]
+  vpc_id =         "vpc-0222cd10ddab1c8a7"
+  subnet_id              = "subnet-00490b67305622c42"
+  vpc_security_group_ids = "sg-002b1f337f63c3ad1"
   key_name               = aws_key_pair.ownkey.id
   # iam_instance_profile = aws_iam_instance_profile.ecr-role.name
   user_data              = <<-EOF
